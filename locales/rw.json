@@ -1,0 +1,7 @@
+{
+  "menu": {
+    "welcome": "Murakaza neza muri Serivisi yo Gufata Itike\n1. Reba Imihanda\n2. Sobanukirwa Igihe\n3. Fata Itike\n4. Amatike Yanjye\n5. Sesa Itike",
+    "select_route": "Hitamo umuhanda:",
+    "book_success": "Itike yawe irabitswe neza!"
+  }
+}

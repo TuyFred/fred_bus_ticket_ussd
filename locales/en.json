@@ -1,0 +1,7 @@
+{
+  "menu": {
+    "welcome": "Welcome to Bus Ticket Booking\n1. View Routes\n2. Check Schedules\n3. Book a Seat\n4. My Bookings\n5. Cancel Booking",
+    "select_route": "Select a route:",
+    "book_success": "Booking confirmed! Your seat is reserved."
+  }
+}
