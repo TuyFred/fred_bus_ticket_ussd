@@ -1,7 +1,7 @@
 {
-  "menu": {
-    "welcome": "Welcome to Bus Ticket Booking\n1. View Routes\n2. Check Schedules\n3. Book a Seat\n4. My Bookings\n5. Cancel Booking",
-    "select_route": "Select a route:",
-    "book_success": "Booking confirmed! Your seat is reserved."
-  }
+  "language_selected": "Language selected: English",
+  "select_option": "Welcome to Fred_Bus Company Ltd\n1. Buy Ticket\n0. Go Back",
+  "select_route": "Select Route:\n1. Kigali - Musanze\n2. Huye - Kigali\n3. Kigali - Rwamagana\n4. Nyabugogo - Nairobi\n0. Go Back",
+  "ticket_success": "Ticket booked successfully for {{route}}. Thank you for using Fred_Bus!",
+  "go_back": "0. Go Back"
 }

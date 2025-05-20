@@ -1,7 +1,7 @@
 {
-  "menu": {
-    "welcome": "Murakaza neza muri Serivisi yo Gufata Itike\n1. Reba Imihanda\n2. Sobanukirwa Igihe\n3. Fata Itike\n4. Amatike Yanjye\n5. Sesa Itike",
-    "select_route": "Hitamo umuhanda:",
-    "book_success": "Itike yawe irabitswe neza!"
-  }
+  "language_selected": "Ururimi wahisemo: Ikinyarwanda",
+  "select_option": "Murakaza neza muri Fred_Bus Company Ltd\n1. Kugura itike\n0. Subira inyuma",
+  "select_route": "Hitamo aho ugiye:\n1. Kigali - Musanze\n2. Huye - Kigali\n3. Kigali - Rwamagana\n4. Nyabugogo - Nairobi\n0. Subira inyuma",
+  "ticket_success": "Itike yawe ya {{route}} yemejwe. Murakoze gukoresha Fred_Bus!",
+  "go_back": "0. Subira inyuma"
 }

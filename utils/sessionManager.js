@@ -1,24 +1,13 @@
-// utils/sessionManager.js
-
-const sessions = new Map();
-
-function getSession(phoneNumber) {
-  if (!sessions.has(phoneNumber)) {
-    sessions.set(phoneNumber, { step: 0, data: {} });
-  }
-  return sessions.get(phoneNumber);
-}
-
-function updateSession(phoneNumber, sessionData) {
-  sessions.set(phoneNumber, sessionData);
-}
-
-function resetSession(phoneNumber) {
-  sessions.delete(phoneNumber);
-}
+const sessions = {};
 
 module.exports = {
-  getSession,
-  updateSession,
-  resetSession
+  getSession: (phone) => {
+    if (!sessions[phone]) sessions[phone] = {};
+    return sessions[phone];
+  },
+
+  setLanguage: (phone, lang) => {
+    if (!sessions[phone]) sessions[phone] = {};
+    sessions[phone].lang = lang;
+  }
 };

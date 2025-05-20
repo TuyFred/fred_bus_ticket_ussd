@@ -1,70 +1,56 @@
-const db = require('../models/db');
-const { getSession, updateSession, resetSession } = require('../utils/sessionManager');
+const i18n = require('../utils/i18n');
+const sessionManager = require('../utils/sessionManager');
 
-exports.handleUSSD = (req, res) => {
-  const { phoneNumber, text } = req.body;
-  const lang = req.query.lang || 'en';
-  const i18n = res.__.bind(res);
-  const session = getSession(phoneNumber);
-  const inputs = text.split('*');
-  const currentInput = inputs[inputs.length - 1];
+const routes = {
+  1: "Kigali - Musanze",
+  2: "Huye - Kigali",
+  3: "Kigali - Rwamagana",
+  4: "Nyabugogo - Nairobi"
+};
 
-  const send = (msg) => res.send(msg.startsWith('END') ? msg : `CON ${msg}`);
+module.exports = {
+  handleUSSD: (req, res) => {
+    const { text, phoneNumber } = req.body;
+    let response = '';
+    let session = sessionManager.getSession(phoneNumber);
+    const input = text.split('*');
 
-  // Reset if user sends empty (new session)
-  if (text === '') {
-    session.step = 0;
-    session.data = {};
-    updateSession(phoneNumber, session);
-    return send(i18n('menu.welcome'));
-  }
+    switch (input.length) {
+      case 1: // Language selection
+        response = `CON Select Language\n1. English\n2. Kinyarwanda`;
+        break;
 
-  switch (session.step) {
-    case 0:
-      switch (currentInput) {
-        case '1':
-          db.all('SELECT * FROM routes', (err, rows) => {
-            if (rows.length === 0) return send('END No routes available.');
-            let msg = rows.map(r => `${r.id}. ${r.name}`).join('\n');
-            return send(`Available routes:\n${msg}\n\n0. Back`);
-          });
-          return;
-        case '3':
-          db.all('SELECT * FROM routes', (err, rows) => {
-            session.step = 1;
-            session.data.routes = rows;
-            updateSession(phoneNumber, session);
-            let msg = i18n('menu.select_route') + '\n' + rows.map(r => `${r.id}. ${r.name}`).join('\n') + '\n0. Back';
-            return send(msg);
-          });
-          return;
-        case '0':
-          resetSession(phoneNumber);
-          return send(i18n('menu.welcome'));
-        default:
-          return send('END Invalid option.');
-      }
+      case 2: // Language saved
+        const lang = input[1] === '2' ? 'rw' : 'en';
+        sessionManager.setLanguage(phoneNumber, lang);
+        i18n.setLocale(lang);
+        response = `CON ${i18n.__('select_option')}`;
+        break;
 
-    case 1: // Booking route selection
-      if (currentInput === '0') {
-        session.step = 0;
-        updateSession(phoneNumber, session);
-        return send(i18n('menu.welcome'));
-      }
+      case 3: // Main menu
+        i18n.setLocale(session.lang || 'en');
+        if (input[2] === '1') {
+          response = `CON ${i18n.__('select_route')}`;
+        } else {
+          response = `END Session ended.`;
+        }
+        break;
 
-      const selectedRouteId = parseInt(currentInput);
-      const route = session.data.routes.find(r => r.id === selectedRouteId);
-      if (!route) return send('END Invalid route.');
+      case 4: // Route selection
+        i18n.setLocale(session.lang || 'en');
+        const route = routes[input[3]];
+        if (route) {
+          response = `END ${i18n.__('ticket_success', { route })}`;
+        } else {
+          response = `END Invalid option.`;
+        }
+        break;
 
-      db.run('INSERT INTO bookings (route_id, phone) VALUES (?, ?)', [selectedRouteId, phoneNumber], (err) => {
-        if (err) return send('END Booking failed.');
-        resetSession(phoneNumber);
-        return send('END ' + i18n('menu.book_success'));
-      });
-      return;
+      default:
+        response = `END Invalid input.`;
+    }
 
-    default:
-      resetSession(phoneNumber);
-      return send('END Session expired or invalid.');
+    res.set('Content-Type: text/plain');
+    res.send(response);
   }
 };
