@@ -1,26 +1,25 @@
-const db = require('./db');
+const sqlite3 = require('sqlite3').verbose();
+const db = new sqlite3.Database('./bus_ticket.db');
 
-const BookingModel = {
-  createBooking(booking, callback) {
-    const { route_id, phone } = booking;
-    db.run(
-      "INSERT INTO bookings (route_id, phone, status) VALUES (?, ?, 'booked')",
-      [route_id, phone],
-      callback
-    );
+// Create table if it doesn't exist
+db.run(`CREATE TABLE IF NOT EXISTS bookings (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  phone TEXT NOT NULL,
+  route TEXT NOT NULL,
+  created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+)`);
+
+module.exports = {
+  saveBooking: (phone, route, callback) => {
+    const stmt = `INSERT INTO bookings (phone, route) VALUES (?, ?)`;
+    db.run(stmt, [phone, route], function (err) {
+      callback(err, this.lastID);
+    });
   },
 
-  getBookingsByPhone(phone, callback) {
-    db.all("SELECT * FROM bookings WHERE phone = ?", [phone], callback);
-  },
-
-  cancelBooking(id, callback) {
-    db.run("UPDATE bookings SET status = 'cancelled' WHERE id = ?", [id], callback);
-  },
-
-  getAllBookings(callback) {
-    db.all("SELECT * FROM bookings", callback);
+  getAllBookings: (callback) => {
+    db.all(`SELECT * FROM bookings`, (err, rows) => {
+      callback(err, rows);
+    });
   }
 };
-
-module.exports = BookingModel;

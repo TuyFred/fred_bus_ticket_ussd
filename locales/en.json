@@ -1,7 +1,9 @@
 {
-  "language_selected": "Language selected: English",
-  "select_option": "Welcome to Fred_Bus Company Ltd\n1. Buy Ticket\n0. Go Back",
-  "select_route": "Select Route:\n1. Kigali - Musanze\n2. Huye - Kigali\n3. Kigali - Rwamagana\n4. Nyabugogo - Nairobi\n0. Go Back",
-  "ticket_success": "Ticket booked successfully for {{route}}. Thank you for using Fred_Bus!",
-  "go_back": "0. Go Back"
+  "select_option": "1. Buy Ticket",
+  "select_route": "Select your route:\n1. Kigali - Musanze\n2. Huye - Kigali\n3. Kigali - Rwamagana\n4. Nyabugogo - Nairobi",
+  "ticket_success": "Ticket booked for route: {{route}}. Thank you for choosing Fred_Bus Company Ltd.",
+  "invalid_option": "Invalid option.",
+  "invalid_input": "Invalid input.",
+  "session_end": "Session ended.",
+  "error_saving": "Error saving your booking. Try again."
 }

@@ -1,7 +1,9 @@
 {
-  "language_selected": "Ururimi wahisemo: Ikinyarwanda",
-  "select_option": "Murakaza neza muri Fred_Bus Company Ltd\n1. Kugura itike\n0. Subira inyuma",
-  "select_route": "Hitamo aho ugiye:\n1. Kigali - Musanze\n2. Huye - Kigali\n3. Kigali - Rwamagana\n4. Nyabugogo - Nairobi\n0. Subira inyuma",
-  "ticket_success": "Itike yawe ya {{route}} yemejwe. Murakoze gukoresha Fred_Bus!",
-  "go_back": "0. Subira inyuma"
+  "select_option": "1. Kugura itike",
+  "select_route": "Hitamo inzira:\n1. Kigali - Musanze\n2. Huye - Kigali\n3. Kigali - Rwamagana\n4. Nyabugogo - Nairobi",
+  "ticket_success": "Itike yawe kuri {{route}} yemejwe. Murakoze gukoresha Fred_Bus Company Ltd.",
+  "invalid_option": "Ihitamo ritari ryo.",
+  "invalid_input": "Ibisubizo bitari byo.",
+  "session_end": "Igihe kirarangiye.",
+  "error_saving": "Habaye ikosa mu kubika itike yawe. Ongera ugerageze."
 }
